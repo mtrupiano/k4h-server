@@ -5,7 +5,7 @@ const compression = require("compression");
 const http = require('http');
 require('dotenv').config();
 
-const db = require("./models");
+// const db = require("./models");
 const app = express();
 
 app.use(compression());
@@ -17,9 +17,9 @@ const routes = require("./controllers/routes.js");
 
 app.use(routes);
 
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static("../client/build"))
-}
+// if(process.env.NODE_ENV === "production"){
+//     app.use(express.static("../client/build"))
+// }
 
 // Set up server for socket io
 const server = http.createServer(app);
@@ -58,8 +58,8 @@ const server = http.createServer(app);
 // });
 
 const PORT = process.env.PORT || 3001;
-db.sequelize.sync({ force: false}).then(function () {
+// db.sequelize.sync({ force: false}).then(function () {
     server.listen(PORT, function () {
         console.log(`App now listening on port: ${PORT} view at: http://localhost:${PORT}`);
     });
-});
+// });
