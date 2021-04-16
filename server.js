@@ -5,7 +5,7 @@ const compression = require("compression");
 const http = require('http');
 require('dotenv').config();
 
-// const db = require("./models");
+const db = require("./models");
 const app = express();
 
 app.use(compression());
@@ -58,8 +58,8 @@ const server = http.createServer(app);
 // });
 
 const PORT = process.env.PORT || 3001;
-// db.sequelize.sync({ force: false}).then(function () {
+db.sequelize.sync({ force: true }).then(function () {
     server.listen(PORT, function () {
         console.log(`App now listening on port: ${PORT} view at: http://localhost:${PORT}`);
     });
-// });
+});
