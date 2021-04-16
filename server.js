@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const compression = require("compression");
-const socketio = require('socket.io');
+// const socketio = require('socket.io');
 const http = require('http');
 require('dotenv').config();
 
@@ -23,39 +23,39 @@ if(process.env.NODE_ENV === "production"){
 
 // Set up server for socket io
 const server = http.createServer(app);
-const io = socketio(server, {
-    cors: {
-        origin: '*'
-    }
-});
+// const io = socketio(server, {
+//     cors: {
+//         origin: '*'
+//     }
+// });
 
-io.on('connection', (socket) => {
-    console.log('New connection!!!');
+// io.on('connection', (socket) => {
+//     console.log('New connection!!!');
 
-    socket.on('join', async thread => {
-        console.log('Thread ID passed to socket: ' + thread);
-        socket.join(thread);
-        io.emit('roomJoined', thread);
-    });
+//     socket.on('join', async thread => {
+//         console.log('Thread ID passed to socket: ' + thread);
+//         socket.join(thread);
+//         io.emit('roomJoined', thread);
+//     });
 
-    socket.on('typing', (data) => {
-        io.emit('typing-' + data.thread + '-' + data.sender);
-    });
+//     socket.on('typing', (data) => {
+//         io.emit('typing-' + data.thread + '-' + data.sender);
+//     });
 
-    socket.on('message', async (data) => {
-        const message = await db.Message.create({
-            senderId: data.senderId,
-            recipientId: data.recipientId,
-            ThreadId: data.ThreadId,
-            body: data.body
-        });
-        io.emit('newMessage', message);
-    });
+//     socket.on('message', async (data) => {
+//         const message = await db.Message.create({
+//             senderId: data.senderId,
+//             recipientId: data.recipientId,
+//             ThreadId: data.ThreadId,
+//             body: data.body
+//         });
+//         io.emit('newMessage', message);
+//     });
 
-    socket.on('disconnect', () => {
-        console.log('Disconnected!!!');
-    });
-});
+//     socket.on('disconnect', () => {
+//         console.log('Disconnected!!!');
+//     });
+// });
 
 const PORT = process.env.PORT || 3001;
 db.sequelize.sync({ force: false}).then(function () {
