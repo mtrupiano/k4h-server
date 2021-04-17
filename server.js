@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
 });
 
 const PORT = process.env.PORT || 3001;
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync({ force: false }).then(function () {
     server.listen(PORT, function () {
         console.log(`App now listening on port: ${PORT} view at: http://localhost:${PORT}`);
     });
