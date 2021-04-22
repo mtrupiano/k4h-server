@@ -74,10 +74,12 @@ router.get('/', (request, response) => {
             });
         }
 
-        const queryParams = { include: includes };
-        queryParams['where'] = {
-            '$Tags.name$': { [Op.in]: request.query.tags.split(',') }
+        if (request.query.tags) {
+            queryParams['where'] = {
+                '$Tags.name$': { [Op.in]: request.query.tags.split(',') }
+            }
         }
+        const queryParams = { include: includes };
 
         // Add a search condition to the query if one is provided
         // if (request.query.search) {
